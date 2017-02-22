@@ -9,6 +9,7 @@ namespace WebApplication002.DAL
 {
     public class EmployeeListInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<EmployeeListContext>
     {
+        //Database will be dropped and recreated for testing purposes, later i will use Code First Migration
         protected override void Seed(EmployeeListContext context)
         {
             var employees = new List<Employee>

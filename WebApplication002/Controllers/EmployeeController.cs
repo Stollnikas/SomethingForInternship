@@ -26,11 +26,13 @@ namespace WebApplication002.Controllers
 
         public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
+            //Creating cases to select in switch statement for sorting
             ViewBag.CurrentSort = sortOrder;
             ViewBag.FirstNameSortParm = String.IsNullOrEmpty(sortOrder) ? "firstname_desc" : "";
             ViewBag.LastNameSortParm = sortOrder == "lastname" ? "lastname_desc" : "lastname";
             ViewBag.SalaryNetoSortParm = sortOrder == "salary" ? "salary_desc" : "salary";
 
+            //Paging functionality
             if (searchString != null)
             {
                 page = 1;
@@ -44,11 +46,15 @@ namespace WebApplication002.Controllers
 
             var employees = from s in db.Employees
                            select s;
+
+            //Setting up search
             if (!String.IsNullOrEmpty(searchString))
             {
                 employees = employees.Where(s => s.LastName.Contains(searchString)
                                        || s.FirstName.Contains(searchString));
             }
+
+            //Switch statement to select sort order
             switch (sortOrder)
             {
                 case "lastname_desc":
@@ -70,6 +76,8 @@ namespace WebApplication002.Controllers
                     employees = employees.OrderBy(s => s.FirstName);
                     break;
             }
+
+            //more paging stuff with extension methods
             int pageSize = 3;
             int pageNumber = (page ?? 1);
             return View(employees.ToPagedList(pageNumber, pageSize));
@@ -101,6 +109,7 @@ namespace WebApplication002.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //Removed ID from the Bind attribute because ID is set automatically when the row is inserted. Input from the user does not set the ID value.
         public ActionResult Create([Bind(Include = "FirstName,LastName,SalaryNeto")] Employee employee)
         {
             try

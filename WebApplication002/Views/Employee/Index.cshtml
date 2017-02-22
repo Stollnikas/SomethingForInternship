@@ -12,6 +12,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@*Adding search box*@
 @using (Html.BeginForm("Index", "Employee", FormMethod.Get))
 {
     <p>
@@ -21,6 +22,7 @@
 }
 <table class="table">
     <tr>
+        @*Viewbag is used to set up hyperlinks with the appropriate query string values for sorting.*@
         <th>
             @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FirstNameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
