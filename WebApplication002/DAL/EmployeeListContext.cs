@@ -1,7 +1,6 @@
-﻿using WebApplication002.Models;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-
+using WebApplication002.Models;
 
 namespace WebApplication002.DAL
 {

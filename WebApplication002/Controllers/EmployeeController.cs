@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using PagedList;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using WebApplication002.DAL;
 using WebApplication002.Models;
-using WebGrease.Css.Extensions;
-using PagedList;
 
 namespace WebApplication002.Controllers
 {
@@ -45,7 +42,7 @@ namespace WebApplication002.Controllers
             ViewBag.CurrentFilter = searchString;
 
             var employees = from s in db.Employees
-                           select s;
+                            select s;
 
             //Setting up search
             if (!String.IsNullOrEmpty(searchString))
@@ -60,18 +57,23 @@ namespace WebApplication002.Controllers
                 case "lastname_desc":
                     employees = employees.OrderByDescending(s => s.LastName);
                     break;
+
                 case "lastname":
                     employees = employees.OrderBy(s => s.LastName);
                     break;
+
                 case "firstname_desc":
                     employees = employees.OrderByDescending(s => s.FirstName);
                     break;
+
                 case "salary_desc":
                     employees = employees.OrderByDescending(s => s.SalaryNeto);
                     break;
+
                 case "salary":
                     employees = employees.OrderBy(s => s.SalaryNeto);
                     break;
+
                 default:
                     employees = employees.OrderBy(s => s.FirstName);
                     break;
@@ -105,7 +107,7 @@ namespace WebApplication002.Controllers
         }
 
         // POST: Employee/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -115,11 +117,11 @@ namespace WebApplication002.Controllers
             try
             {
                 if (ModelState.IsValid)
-            {
-                db.Employees.Add(employee);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                {
+                    db.Employees.Add(employee);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             catch (DataException /* dex */)
             {
@@ -182,19 +184,18 @@ namespace WebApplication002.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-
             try
             {
                 Employee employee = db.Employees.Find(id);
-                db.Employees.Remove(employee);
+                if (employee != null) db.Employees.Remove(employee);
                 db.SaveChanges();
             }
             catch (DataException/* dex */)
             {
                 //Log the error (uncomment dex variable name and add a line here to write a log.
-                return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+                return RedirectToAction("Delete", new { id, saveChangesError = true });
             }
-            
+
             return RedirectToAction("Index");
         }
 

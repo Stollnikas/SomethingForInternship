@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using WebApplication002.Models;
 
 namespace WebApplication002.DAL

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using static System.Convert;
+﻿using static System.Convert;
 using static System.Decimal;
 
 namespace WebApplication002.Models
@@ -12,6 +7,7 @@ namespace WebApplication002.Models
     {
         //Employee Class properties, names are pretty self explanatory
         public int ID { get; set; }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public decimal SalaryNeto { get; set; }
@@ -19,7 +15,8 @@ namespace WebApplication002.Models
         //SalaryBruto has only getter, because the value is not saved anywhere, and is calculated from the Neto salary of the employee.
         public decimal SalaryBruto
         {
-            get {
+            get
+            {
                 if (SalaryNeto >= 760)
                 {
                     //Calculate when neto is more then 760 (Bruto is 1000), then NPD reaches 0 and should be excluded.
@@ -33,7 +30,6 @@ namespace WebApplication002.Models
                     return x;
                 }
             }
-
         }
     }
 }
